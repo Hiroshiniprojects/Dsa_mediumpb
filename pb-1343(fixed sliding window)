@@ -1,0 +1,51 @@
+Intuition
+First categorize this problem into sliding window buy looking at the pattern fixed window size and asking the count for the number of sub array which satisfy the particular condition.
+
+Approach
+Sliding window pattern:constant or fixed window:
+*Declare all the variables sum,count,l-leftside,r-rightside,avg
+step1: have a for loop and get the summation of the fixed size array elements
+step2:outside the first for loop check the avg with threshold if that is greater increase the count
+step3:initialise the values l=0(2 pointers approach),r=k-1(since this places l in the leftmost part in the array and r in the first k-1 position)
+step4:A while loop to iterate where r<n-1 until the last pos-1 so that when r is incremented no index outofbound error is caused.
+step5:take the sum and reduce l value and increment the l to next pos step6:first increment r and then do the sum for r and then compute the avg and check if they are greater,count++.
+step7:return count.
+
+Complexity
+Time complexity:
+T(n)=O(n+n)-for first for loop and one while loop
+
+Space complexity:
+T(n)=O(1)
+
+Code
+class Solution {
+    public int numOfSubarrays(int[] arr, int k, int threshold) {
+        int sum=0;
+        int count=0;
+        float avg=0;
+        int n=arr.length;
+        for(int i=0;i<k;i++){
+            sum+=arr[i];
+            
+        }
+        avg=sum/k;
+        if(avg>=threshold){
+            count++;
+        }
+        int l=0;
+        int r=k-1;
+        while(r<n-1){
+            sum=sum-arr[l];
+            l++;
+            r=r+1;
+            sum=sum+arr[r];
+            avg=sum/k;
+            if(avg>=threshold){
+                count++;
+            }
+            
+        }
+        return count;
+    }
+}

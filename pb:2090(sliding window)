@@ -1,0 +1,24 @@
+class Solution {
+    public int[] getAverages(int[] nums, int k) {
+        int len=nums.length;
+        int[] ans=new int[len];
+        Arrays.fill(ans,-1);
+        int windowsize=2*k+1;//k+k+1 i-k+i+k when i=k we get 2K+1
+        if(len<windowsize) return ans;//if len is <window size we return the ans array
+        long sum=0;//long is used when the summation is execeeding int range
+        for(int i=0;i<windowsize;i++){//summation till windowsize< not included
+            sum+=nums[i];
+        }
+        ans[k]=(int)(sum/windowsize);
+        int l=0;
+        int r=windowsize;
+        while(r<len){
+            sum=sum-nums[l]+nums[r];//here the last value window is included and the l is removed and slided 
+            l++;
+            ans[l+k]=(int)(sum/windowsize);
+            r++;
+        }
+return ans;
+        }
+    }
+    //here stiver approach is bit changed the r is added first then sum is calculated the ans is taken then r is incremented till len-1 inclusive 

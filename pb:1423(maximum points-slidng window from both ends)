@@ -1,0 +1,34 @@
+Intuition
+This is a slightly different sliding window with 2 pointer appraoch problem
+
+Approach
+step 1:First we are taking the summation of all the left side elements and store that as maxvalue.
+step2:then we will reduce the left side elements and include right side elements by sliding the window we will reduce the left by decrementing the for loop and incrementing the right side and reducing the right side pointer--
+
+Complexity
+Time complexity:
+T(n)=O(2n)
+
+Space complexity:
+Sc(n)=O(1)
+
+Code
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+       int n=cardPoints.length;
+       int lsum=0;
+       int rsum=0;
+       for(int i=0;i<k;i++){
+        lsum+=cardPoints[i];
+       }
+     int maxsum=lsum;
+       int right=n-1;
+       for(int i=k-1;i>=0;i--){
+        lsum-=cardPoints[i];
+        rsum+=cardPoints[right];
+        right--;
+        maxsum=Math.max(maxsum,lsum+rsum);
+       }
+       return maxsum; 
+    }
+}

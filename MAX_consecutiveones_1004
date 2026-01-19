@@ -1,0 +1,39 @@
+//med pb
+//19.01.2026
+Intuition
+First do not get the trap into fliping of zeros it is to confuse the logic think of like counting the zeros and moving the left and right pointers
+
+Approach
+sliding window first take l,r and maxlen so move the r till the end of the array and when the number is zero count the zero++
+when then zero>k exceding move the left as many times so that when the first zero is encountered the zero count is reduced and l++ this will slide the l pointer to the pos and keep the window fixed
+
+Complexity
+Time complexity:
+O(2n)
+
+Space complexity:
+O(1)
+
+Code
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int n=nums.length;
+        int l=0;
+        int r=0;
+        int zero=0;
+        int max_len=0;
+        while(r<n){
+            if(nums[r]==0)zero++;
+            while(zero>k){
+                if(nums[l]==0)zero--;
+                l++;
+            }
+            if(zero<=k){
+                max_len=Math.max(max_len,r-l+1);
+
+            }
+            r++;
+        }
+        return max_len;
+    }
+}
